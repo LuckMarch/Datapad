@@ -26,14 +26,15 @@ class ScanlineScreen(Screen):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self._scan_offset = 0
+        self.scan_offset = 0
         Clock.schedule_interval(self._update_scanlines, 1 / 60.)  # 30 fps
 
-        self.scan_texture = CoreImage("assets\scanlines.png").texture
+        scanlines_path = os.path.join("assets", "scanlines.png")
+        self.scan_texture = CoreImage(scanlines_path).texture
         self.scan_texture.wrap = 'repeat'
 
     def _update_scanlines(self, dt):
-        self._scan_offset += 0.3
+        self.scan_offset += 0.3
         #self.canvas.ask_update()
 
 
