@@ -1,0 +1,249 @@
+#:import rgba kivy.utils.rgba
+
+<MenuScreen>:
+    name: "menu"
+
+    FloatLayout:  # Conteneur pour superposer les scanlines
+        canvas.before:
+            Color:
+                rgba: rgba('#000000')  # fond noir
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        canvas.after:
+            Rectangle:
+                texture: self.scan_texture
+                tex_coords: (0, 0 + root.scan_offset / 50.0, 1, 1 + root.scan_offset / 50.0)
+                pos: self.pos
+                size: self.size
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 20
+            spacing: 15
+
+            Label:
+                id: title_label
+                text: "Datapad Star Wars"
+                font_size: '28sp'
+                color: 0, 1, 1, 1
+
+            Label:
+                text: "Datapad – Archives de droïdes"
+                font_size: '28sp'
+                bold: True
+                color: rgba('#00ffff')
+                font_name: 'RobotoMono-Regular'
+                size_hint_y: None
+                height: self.texture_size[1]
+
+            ScrollView:
+                do_scroll_x: False
+
+                GridLayout:
+                    id: album_grid
+                    cols: 2
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: 10
+
+            Button:
+                text: "Mode Admin"
+                size_hint_y: 0.15
+                font_size: '20sp'
+                bold: True
+                background_normal: ''
+                background_color: 0, 0.6, 1, 1
+                color: 1, 1, 1, 1
+                canvas.before:
+                    Color:
+                        rgba: 0, 0.6, 1, 0.8
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [12]
+                on_press:
+                    self.canvas.before.clear()
+                on_release:
+                    root.open_admin()
+
+<AlbumScreen>:
+    name: "album"
+    canvas.before:
+        Color:
+            rgba: rgba('#000000')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 15
+
+        Label:
+            text: root.album_name
+            font_size: '28sp'
+            bold: True
+            color: rgba('#00ffff')
+            font_name: 'RobotoMono-Regular'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        ScrollView:
+            do_scroll_x: False
+
+            GridLayout:
+                id: media_grid
+                cols: 2
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 10
+
+        Button:
+            text: "← Retour"
+            size_hint_y: 0.1
+            font_size: '20sp'
+            bold: True
+            background_normal: ''
+            background_color: 0, 0.6, 1, 1
+            color: 1, 1, 1, 1
+            canvas.before:
+                Color:
+                    rgba: 0, 0.6, 1, 0.8
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [12]
+            on_release:
+                app.root.current = 'menu'
+
+
+<AdminScreen>:
+    name: "admin"
+    canvas.before:
+        Color:
+            rgba: rgba('#000000')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 15
+
+        Label:
+            text: "Mode Admin"
+            font_size: '28sp'
+            bold: True
+            color: rgba('#ff3333')  # rouge impérial
+            font_name: 'RobotoMono-Regular'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            spacing: 10
+
+            TextInput:
+                id: new_album_name
+                hint_text: "Nom du nouvel album"
+                font_name: 'RobotoMono-Regular'
+                background_color: 0.05, 0.05, 0.05, 1
+                foreground_color: rgba('#00ffff')
+                cursor_color: rgba('#00ffff')
+                padding: [10, 10, 10, 10]
+
+            Button:
+                text: "Créer"
+                font_size: '18sp'
+                background_normal: ''
+                background_color: 0, 0.6, 1, 1
+                color: 1, 1, 1, 1
+                canvas.before:
+                    Color:
+                        rgba: 0, 0.6, 1, 0.8
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [8]
+                on_release: root.create_album()
+
+        Spinner:
+            id: delete_album_spinner
+            text: "Choisir un album à supprimer"
+            values: root.get_album_list()
+            background_color: 0.05, 0.05, 0.05, 1
+            color: rgba('#00ffff')
+            font_name: 'RobotoMono-Regular'
+
+        Button:
+            text: "❌ Supprimer l'album sélectionné"
+            font_size: '18sp'
+            background_normal: ''
+            background_color: 0.8, 0, 0, 1
+            color: 1, 1, 1, 1
+            on_release: root.delete_selected_album(force=True)
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            spacing: 10
+
+            Spinner:
+                id: import_album_spinner
+                text: "Choisir un album"
+                values: root.get_album_list()
+                background_color: 0.05, 0.05, 0.05, 1
+                color: rgba('#00ffff')
+                font_name: 'RobotoMono-Regular'
+
+            Button:
+                text: "📥 Importer une image"
+                font_size: '18sp'
+                background_normal: ''
+                background_color: 0, 0.6, 1, 1
+                color: 1, 1, 1, 1
+                on_release: root.import_image_to_album()
+
+        Button:
+            text: "⬅ Retour"
+            size_hint_y: 0.1
+            font_size: '20sp'
+            bold: True
+            background_normal: ''
+            background_color: 0, 0.6, 1, 1
+            color: 1, 1, 1, 1
+            on_release: app.root.current = 'menu'
+
+
+<LoginPopup>:
+    title: "Accès Admin"
+    size_hint: 0.7, 0.4
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 10
+        padding: 10
+
+        TextInput:
+            id: password_input
+            hint_text: "Mot de passe"
+            password: True
+            multiline: False
+            font_name: 'RobotoMono-Regular'
+            background_color: 0.05, 0.05, 0.05, 1
+            foreground_color: rgba('#00ffff')
+            cursor_color: rgba('#00ffff')
+
+        Button:
+            text: "Valider"
+            font_size: '18sp'
+            background_normal: ''
+            background_color: 0, 0.6, 1, 1
+            color: 1, 1, 1, 1
+            on_release:
+                root.validate(password_input.text)
