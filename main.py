@@ -1,21 +1,16 @@
 from kivy.core.text import LabelBase
 from kivy.properties import NumericProperty, ObjectProperty
-from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from kivy.uix.filechooser import FileChooserListView
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
 from kivy.uix.button import Button
 from kivy.app import App
-from kivy.lang import Builder
-from kivy.factory import Factory
 from kivy.uix.popup import Popup
 from kivy.animation import Animation
 from kivy.clock import Clock
 from kivy.core.image import Image as CoreImage
-from kivy.graphics.texture import Texture
+from kivy.factory import Factory
 
 import shutil
 import os
@@ -40,12 +35,25 @@ class ScanlineScreen(Screen):
         self.scan_offset = (self.scan_offset + 0.0005) % 1.0  # Loop between 0–1
         #self.canvas.ask_update()
 
+class GlitchLabel(Label):
+    def on_parent(self, instance, parent):
+        if parent and not self._is_in_admin_screen():
+            self.animate_glitch()
 
-def animate_glitch(label):
-    anim = Animation(color=(0, 1, 1, 0.6), duration=0.2) + Animation(color=(0, 1, 1, 1), duration=0.2)
-    anim.repeat = True
-    anim.start(label)
+    def animate_glitch(label):
+        anim = Animation(color=(0, 1, 1, 0.6), duration=0.2) + Animation(color=(0, 1, 1, 1), duration=0.2)
+        anim.repeat = True
+        anim.start(label)
 
+    def _is_in_admin_screen(self):
+        current = self
+        while current:
+            if current.__class__.__name__=='AdminScreen':
+                return True
+            current = current.parent
+        return False
+
+Factory.register('GlitchLabel', cls=GlitchLabel)
 
 class LoginPopup(Popup):
     def validate(self, password):
@@ -56,7 +64,6 @@ class LoginPopup(Popup):
 class MenuScreen(ScanlineScreen):
     def on_enter(self):
         print("IDs dans MenuScreen :", self.ids)
-        animate_glitch(self.ids.title_label)
         self.ids.album_grid.clear_widgets()
         albums_path = "albums"
         if not os.path.exists(albums_path):

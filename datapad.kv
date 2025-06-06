@@ -27,13 +27,13 @@
             padding: 20
             spacing: 15
 
-            Label:
-                id: title_label
+            GlitchLabel:
+                id: title_GlitchLabel
                 text: "Droid Builder"
                 font_size: '28sp'
                 color: 0, 1, 1, 1
 
-            Label:
+            GlitchLabel:
                 text: "Datapad – Droides Archive"
                 font_size: '28sp'
                 bold: True
@@ -76,7 +76,7 @@
         padding: 20
         spacing: 15
 
-        Label:
+        GlitchLabel:
             text: root.album_name
             font_size: '28sp'
             bold: True
@@ -96,7 +96,7 @@
                 spacing: 10
 
         Button:
-            text: "← Retour"
+            text: "Retour"
             size_hint_y: 0.1
             font_size: '20sp'
             bold: True
@@ -128,7 +128,7 @@
         padding: 20
         spacing: 15
 
-        Label:
+        GlitchLabel:
             text: "Mode Admin"
             font_size: '28sp'
             bold: True
@@ -175,7 +175,7 @@
             font_name: 'RobotoMono-Regular'
 
         Button:
-            text: "❌ Supprimer l'album sélectionné"
+            text: "Supprimer l'album sélectionné"
             font_size: '18sp'
             background_normal: ''
             background_color: 0.8, 0, 0, 1
@@ -197,7 +197,7 @@
                 on_text: root.refresh_spinners()
 
             Button:
-                text: "📥 Importer une image"
+                text: "Importer une image"
                 font_size: '18sp'
                 background_normal: ''
                 background_color: 0, 0.6, 1, 1
@@ -213,15 +213,15 @@
                 font_name: 'RobotoMono-Regular'
 
             Button:
-                text: "🗑 Supprimer l'image sélectionnée"
+                text: "Supprimer l'image sélectionnée"
                 font_size: '18sp'
                 background_normal: ''
                 background_color: 0.8, 0, 0, 1
                 color: 1, 1, 1, 1
                 on_release: root.delete_selected_image()
 
-        Label:
-            id: admin_status_label
+        GlitchLabel:
+            id: admin_status_GlitchLabel
             text: ""
             color: rgba('#00ff00')  # Green for success
             font_name: 'RobotoMono-Regular'
@@ -229,7 +229,7 @@
             height: 30
 
         Button:
-            text: "⬅ Retour"
+            text: "Retour"
             size_hint_y: 0.1
             font_size: '20sp'
             bold: True
