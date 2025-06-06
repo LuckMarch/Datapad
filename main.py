@@ -34,7 +34,7 @@ class ScanlineScreen(Screen):
         self.scan_texture.wrap = 'repeat'
 
     def _update_scanlines(self, dt):
-        self.scan_offset += 0.3
+        self.scan_offset = (self.scan_offset + 0.0005) % 1.0  # Loop between 0–1
         #self.canvas.ask_update()
 
 
@@ -75,13 +75,18 @@ class MenuScreen(ScanlineScreen):
 class AlbumScreen(Screen):
     album_name = ""
 
+    def open_album(self, album_name):
+        self.manager.get_screen('album').album_name = album_name
+        self.manager.current = 'album'
+
     def on_enter(self):
+        self.open_album(self.album_name)
         self.ids.media_grid.clear_widgets()
         album_path = os.path.join("albums", self.album_name)
         for filename in os.listdir(album_path):
             if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
-                image_path = os.path.join(album_path, filename)
-                self.ids.media_grid.add_widget(Image(source=image_path))
+                image_path = os.path.abspath(os.path.join(album_path, filename))
+                self.ids.media_grid.add_widget(Image(source=image_path, size_hint_y=None, height=200))
 
 
 class AdminScreen(Screen):

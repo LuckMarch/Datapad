@@ -18,6 +18,8 @@
                 texture: root.scan_texture
                 pos: self.pos
                 size: self.size
+                tex_coords: [0, root.scan_offset, 1, root.scan_offset, 1, root.scan_offset + 1, 0, root.scan_offset + 1]
+
 
         BoxLayout:
             orientation: 'vertical'
