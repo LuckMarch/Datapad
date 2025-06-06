@@ -1,3 +1,4 @@
+from kivy.core.text import LabelBase
 from kivy.properties import NumericProperty, ObjectProperty
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
@@ -19,6 +20,8 @@ from kivy.graphics.texture import Texture
 import shutil
 import os
 
+
+LabelBase.register(name="DroidOBesh", fn_regular="assets/fonts/DroidOBesh.otf")
 
 class ScanlineScreen(Screen):
     scan_texture = ObjectProperty(None)
@@ -149,19 +152,23 @@ class AdminScreen(Screen):
                 popup.dismiss()
 
         content.bind(on_submit=lambda *args: select_and_copy())
+        self.ids.admin_status_label.text = f"Image ajouter avec succès."
         popup.open()
 
     def delete_selected_image(self):
         album = self.ids.import_album_spinner.text
         image_name = self.ids.delete_image_spinner.text
         if album == "Choisir un album" or image_name == "Choisir une image à supprimer":
+            self.ids.admin_status_label.text = "Veuillez sélectionner un album et une image."
             return
         image_path = os.path.join("albums", album, image_name)
         try:
             if os.path.exists(image_path):
                 os.remove(image_path)
-                print(f"Deleted image: {image_path}")
+                self.ids.admin_status_label.text = f"Image '{image_name}' supprimée avec succès."
                 self.refresh_spinners()
+            else:
+                self.ids.admin_status_label.text = "Image introuvable."
         except Exception as e:
             print(f"Erreur lors de la suppression d'image : {e}")
 

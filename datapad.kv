@@ -13,7 +13,7 @@
 
         canvas.after:
             Color:
-                rgba : 1, 1, 1, 0.2
+                rgba : 1, 1, 1, 0
             Rectangle:
                 texture: root.scan_texture
                 pos: self.pos
@@ -28,16 +28,16 @@
 
             Label:
                 id: title_label
-                text: "Datapad Star Wars"
+                text: "Droid Builder"
                 font_size: '28sp'
                 color: 0, 1, 1, 1
 
             Label:
-                text: "Datapad – Archives de droïdes"
+                text: "Datapad – Droides Archive"
                 font_size: '28sp'
                 bold: True
                 color: rgba('#00ffff')
-                font_name: 'RobotoMono-Regular'
+                font_name: 'DroidOBesh'
                 size_hint_y: None
                 height: self.texture_size[1]
 
@@ -90,7 +90,7 @@
             font_size: '28sp'
             bold: True
             color: rgba('#00ffff')
-            font_name: 'RobotoMono-Regular'
+            font_name: 'DroidOBesh'
             size_hint_y: None
             height: self.texture_size[1]
 
@@ -229,6 +229,14 @@
                 color: 1, 1, 1, 1
                 on_release: root.delete_selected_image()
 
+        Label:
+            id: admin_status_label
+            text: ""
+            color: rgba('#00ff00')  # Green for success
+            font_name: 'RobotoMono-Regular'
+            size_hint_y: None
+            height: 30
+
         Button:
             text: "⬅ Retour"
             size_hint_y: 0.1
@@ -254,7 +262,7 @@
             hint_text: "Mot de passe"
             password: True
             multiline: False
-            font_name: 'RobotoMono-Regular'
+            font_name: 'DroidOBesh'
             background_color: 0.05, 0.05, 0.05, 1
             foreground_color: rgba('#00ffff')
             cursor_color: rgba('#00ffff')
