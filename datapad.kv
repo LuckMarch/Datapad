@@ -1,4 +1,5 @@
 #:import rgba kivy.utils.rgba
+#:import Clock kivy.clock.Clock
 
 <MenuScreen>:
     name: "menu"
@@ -51,25 +52,15 @@
                     height: self.minimum_height
                     spacing: 10
 
-            Button:
-                text: "Mode Admin"
-                size_hint_y: 0.15
-                font_size: '20sp'
-                bold: True
-                background_normal: ''
-                background_color: 0, 0.6, 1, 1
-                color: 1, 1, 1, 1
-                canvas.before:
-                    Color:
-                        rgba: 0, 0.6, 1, 0.8
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [12]
-                on_press:
-                    self.canvas.before.clear()
-                on_release:
-                    root.open_admin()
+            Image:
+                source: "assets/logo.png"
+                size_hint: None, None
+                size: 150, 150
+                pos_hint: {"center_x": 0.5}
+                on_touch_down:
+                    if self.collide_point(*args[1].pos): root.admin_touch_timer = Clock.schedule_once(lambda dt: root.open_admin(), 1.5)
+                on_touch_up:
+                    if hasattr(root, 'admin_touch_timer') and root.admin_touch_timer: root.admin_touch_timer.cancel()
 
 <AlbumScreen>:
     name: "album"
