@@ -12,9 +12,10 @@
                 size: self.size
 
         canvas.after:
+            Color:
+                rgba : 1, 1, 1, 0.2
             Rectangle:
-                texture: self.scan_texture
-                tex_coords: (0, 0 + root.scan_offset / 50.0, 1, 1 + root.scan_offset / 50.0)
+                texture: root.scan_texture
                 pos: self.pos
                 size: self.size
 
