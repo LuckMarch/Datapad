@@ -203,6 +203,7 @@
                 background_color: 0.05, 0.05, 0.05, 1
                 color: rgba('#00ffff')
                 font_name: 'RobotoMono-Regular'
+                on_text: root.refresh_spinners()
 
             Button:
                 text: "📥 Importer une image"
@@ -211,6 +212,22 @@
                 background_color: 0, 0.6, 1, 1
                 color: 1, 1, 1, 1
                 on_release: root.import_image_to_album()
+
+            Spinner:
+                id: delete_image_spinner
+                text: "Choisir une image à supprimer"
+                values: []
+                background_color: 0.05, 0.05, 0.05, 1
+                color: rgba('#00ffff')
+                font_name: 'RobotoMono-Regular'
+
+            Button:
+                text: "🗑 Supprimer l'image sélectionnée"
+                font_size: '18sp'
+                background_normal: ''
+                background_color: 0.8, 0, 0, 1
+                color: 1, 1, 1, 1
+                on_release: root.delete_selected_image()
 
         Button:
             text: "⬅ Retour"

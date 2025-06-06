@@ -96,6 +96,13 @@ class AdminScreen(Screen):
     def refresh_spinners(self):
         albums = self.get_album_list()
         self.ids.delete_album_spinner.values = albums
+        selected_album = self.ids.import_album_spinner.text
+        if selected_album and os.path.isdir(os.path.join("albums", selected_album)):
+            image_dir = os.path.join("albums", selected_album)
+            images = [f for f in os.listdir(image_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+            self.ids.delete_image_spinner.values = images
+        else:
+            self.ids.delete_image_spinner.values = []
         self.ids.import_album_spinner.values = albums
 
     def get_album_list(self):
@@ -143,6 +150,20 @@ class AdminScreen(Screen):
 
         content.bind(on_submit=lambda *args: select_and_copy())
         popup.open()
+
+    def delete_selected_image(self):
+        album = self.ids.import_album_spinner.text
+        image_name = self.ids.delete_image_spinner.text
+        if album == "Choisir un album" or image_name == "Choisir une image à supprimer":
+            return
+        image_path = os.path.join("albums", album, image_name)
+        try:
+            if os.path.exists(image_path):
+                os.remove(image_path)
+                print(f"Deleted image: {image_path}")
+                self.refresh_spinners()
+        except Exception as e:
+            print(f"Erreur lors de la suppression d'image : {e}")
 
 
 class DatapadApp(App):
