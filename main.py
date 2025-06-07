@@ -1,3 +1,5 @@
+import random
+
 from kivy.core.text import LabelBase
 from kivy.properties import NumericProperty, ObjectProperty, StringProperty
 from kivy.uix.label import Label
@@ -17,25 +19,28 @@ import os
 
 
 LabelBase.register(name="DroidOBesh", fn_regular="assets/fonts/DroidOBesh.otf")
-
-class ScanlineScreen(Screen):
-    scan_texture = ObjectProperty(None)
-    scan_offset = NumericProperty(0)
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.scan_offset = 0
-        Clock.schedule_interval(self._update_scanlines, 1 / 60.)  # 30 fps
-
-        scanlines_path = os.path.join("assets", "scanlines.png")
-        self.scan_texture = CoreImage(scanlines_path).texture
-        self.scan_texture.wrap = 'repeat'
-
-    def _update_scanlines(self, dt):
-        self.scan_offset = (self.scan_offset + 0.0005) % 1.0  # Loop between 0–1
-        #self.canvas.ask_update()
+LabelBase.register(name="AurebeshEnglish", fn_regular="assets/fonts/AurebeshEnglish.ttf")
 
 class GlitchLabel(Label):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.font_name = "AurebeshEnglish"
+        self._schedule_next_glitch()
+
+    def _glitch(self, dt):
+        # Random short glitch
+        self.font_name = "DroidOBesh"
+        duration = random.uniform(0.25, 0.7)
+        Clock.schedule_once(self._restore_font, duration)
+
+    def _restore_font(self, dt):
+        self.font_name = "AurebeshEnglish"
+        self._schedule_next_glitch()
+
+    def _schedule_next_glitch(self):
+        delay = random.uniform(2, 5)
+        Clock.schedule_once(self._glitch, delay)
+
     def on_parent(self, instance, parent):
         if parent and not self._is_in_admin_screen():
             self.animate_glitch()
@@ -61,7 +66,7 @@ class LoginPopup(Popup):
         self.dismiss()
 
 
-class MenuScreen(ScanlineScreen):
+class MenuScreen(Screen):
     def on_enter(self):
         print("IDs dans MenuScreen :", self.ids)
         self.ids.album_grid.clear_widgets()

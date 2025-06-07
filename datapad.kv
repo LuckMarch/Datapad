@@ -12,16 +12,6 @@
                 pos: self.pos
                 size: self.size
 
-        canvas.after:
-            Color:
-                rgba : 1, 1, 1, 0
-            Rectangle:
-                texture: root.scan_texture
-                pos: self.pos
-                size: self.size
-                tex_coords: [0, root.scan_offset, 1, root.scan_offset, 1, root.scan_offset + 1, 0, root.scan_offset + 1]
-
-
         BoxLayout:
             orientation: 'vertical'
             padding: 20
@@ -34,7 +24,7 @@
                 color: 0, 1, 1, 1
 
             GlitchLabel:
-                text: "Datapad – Droides Archive"
+                text: "Datapad Droides Archive"
                 font_size: '28sp'
                 bold: True
                 color: rgba('#00ffff')
@@ -66,7 +56,7 @@
     name: "album"
     canvas.before:
         Color:
-            rgba: rgba('#000000')
+            rgba: 0,0,0,0.2
         Rectangle:
             pos: self.pos
             size: self.size
@@ -81,7 +71,7 @@
             font_size: '28sp'
             bold: True
             color: rgba('#00ffff')
-            font_name: 'DroidOBesh'
+            font_name: 'AurebeshEnglish'
             size_hint_y: None
             height: self.texture_size[1]
 
