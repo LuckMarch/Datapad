@@ -1,5 +1,5 @@
 from kivy.core.text import LabelBase
-from kivy.properties import NumericProperty, ObjectProperty
+from kivy.properties import NumericProperty, ObjectProperty, StringProperty
 from kivy.uix.label import Label
 from kivy.uix.filechooser import FileChooserListView
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -83,14 +83,9 @@ class MenuScreen(ScanlineScreen):
 
 
 class AlbumScreen(Screen):
-    album_name = ""
-
-    def open_album(self, album_name):
-        self.manager.get_screen('album').album_name = album_name
-        self.manager.current = 'album'
+    album_name = StringProperty("")
 
     def on_enter(self):
-        self.open_album(self.album_name)
         self.ids.media_grid.clear_widgets()
         album_path = os.path.join("albums", self.album_name)
         for filename in os.listdir(album_path):
