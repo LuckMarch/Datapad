@@ -1,6 +1,7 @@
 import random
 
 from kivy.core.text import LabelBase
+from kivy.graphics import Color, Mesh, InstructionGroup, PushMatrix, PopMatrix
 from kivy.properties import NumericProperty, ObjectProperty, StringProperty
 from kivy.uix.label import Label
 from kivy.uix.filechooser import FileChooserListView
@@ -58,7 +59,46 @@ class GlitchLabel(Label):
             current = current.parent
         return False
 
+class SciFiButton(Button):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.font_name = "AurebeshEnglish"
+        self.font_size = '20sp'
+        self.color = (0, 1, 1, 1)
+        self.bold = True
+        self.background_normal = ''
+        self.background_down = ''
+        self.background_color = (0, 0, 0, 0)
+        self.bind(pos=self._trigger_redraw, size=self._trigger_redraw)
+        Clock.schedule_once(self._update_canvas, 0)
+
+    def _trigger_redraw(self, *args):
+        Clock.schedule_once(self._update_canvas, 0)
+
+    def _update_canvas(self, *args):
+        self.canvas.before.clear()
+        with self.canvas.before:
+            Color(0, 0.6, 1, 1)
+
+            w, h = self.size
+
+            points = [
+                10, 0,
+                w - 10, 0,
+                w, h / 2,
+                w - 10, h,
+                10, h,
+                0, h / 2
+            ]
+            vertices = []
+            for px, py in zip(points[::2], points[1::2]):
+                vertices.extend([px, py, 0, 0])
+
+            Mesh(vertices=vertices, indices=list(range(6)), mode='triangle_fan')
+
+
 Factory.register('GlitchLabel', cls=GlitchLabel)
+Factory.register('SciFiButton', cls=SciFiButton)
 
 class LoginPopup(Popup):
     def validate(self, password):
@@ -74,7 +114,7 @@ class MenuScreen(Screen):
         if not os.path.exists(albums_path):
             os.makedirs(albums_path)
         for album_name in os.listdir(albums_path):
-            btn = Button(text=album_name, size_hint_y=None, height=40)
+            btn = SciFiButton(text=album_name, size_hint_y=None, height=50)
             btn.bind(on_release=lambda x, a=album_name: self.open_album(a))
             self.ids.album_grid.add_widget(btn)
 

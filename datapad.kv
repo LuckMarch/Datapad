@@ -4,53 +4,50 @@
 <MenuScreen>:
     name: "menu"
 
-    FloatLayout:  # Conteneur pour superposer les scanlines
-        canvas.before:
-            Color:
-                rgba: rgba('#000000')  # fond noir
-            Rectangle:
-                pos: self.pos
-                size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 15
 
-        BoxLayout:
-            orientation: 'vertical'
-            padding: 20
-            spacing: 15
+        GlitchLabel:
+            id: title_GlitchLabel
+            text: "Droid Builder"
+            font_size: '28sp'
+            color: 0, 1, 1, 1
 
-            GlitchLabel:
-                id: title_GlitchLabel
-                text: "Droid Builder"
-                font_size: '28sp'
-                color: 0, 1, 1, 1
+        GlitchLabel:
+            text: "Datapad Droides Archive"
+            font_size: '28sp'
+            bold: True
+            color: rgba('#00ffff')
+            font_name: 'DroidOBesh'
+            size_hint_y: None
+            height: self.texture_size[1]
 
-            GlitchLabel:
-                text: "Datapad Droides Archive"
-                font_size: '28sp'
-                bold: True
-                color: rgba('#00ffff')
-                font_name: 'DroidOBesh'
+        ScrollView:
+            do_scroll_x: False
+
+            GridLayout:
+                id: album_grid
+                cols: 2
                 size_hint_y: None
-                height: self.texture_size[1]
+                height: self.minimum_height
+                spacing: 10
 
-            ScrollView:
-                do_scroll_x: False
+        Widget:  # Spacer pushes logo to the bottom
+            size_hint_y: None
+            height: 10
 
-                GridLayout:
-                    id: album_grid
-                    cols: 2
-                    size_hint_y: None
-                    height: self.minimum_height
-                    spacing: 10
+        Image:
+            source: "assets/logo.png"
+            size_hint: None, None
+            size: 150, 150
+            pos_hint: {"center_x": 0.5, "y": 0}
+            on_touch_down:
+                if self.collide_point(*args[1].pos): root.admin_touch_timer = Clock.schedule_once(lambda dt: root.open_admin(), 1.5)
+            on_touch_up:
+                if hasattr(root, 'admin_touch_timer') and root.admin_touch_timer: root.admin_touch_timer.cancel()
 
-            Image:
-                source: "assets/logo.png"
-                size_hint: None, None
-                size: 150, 150
-                pos_hint: {"center_x": 0.5}
-                on_touch_down:
-                    if self.collide_point(*args[1].pos): root.admin_touch_timer = Clock.schedule_once(lambda dt: root.open_admin(), 1.5)
-                on_touch_up:
-                    if hasattr(root, 'admin_touch_timer') and root.admin_touch_timer: root.admin_touch_timer.cancel()
 
 <AlbumScreen>:
     name: "album"

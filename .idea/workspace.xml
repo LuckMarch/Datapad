@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b13e7803-dbd6-4b3c-af0f-088dd8782807" name="Changes" comment="update datapad.kv">
+    <list default="true" id="b13e7803-dbd6-4b3c-af0f-088dd8782807" name="Changes" comment="Create a bug animation between fount">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/datapad.kv" beforeDir="false" afterPath="$PROJECT_DIR$/datapad.kv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -23,6 +23,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="9485f658-9218-4d71-be0f-dd91cd96c049" />
@@ -35,15 +36,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.main.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Regis\Documents\GitHub\Datapad_V1\assets\fonts" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Datapad_V1" />
@@ -108,7 +114,23 @@
       <option name="project" value="LOCAL" />
       <updated>1749227364359</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add readable aurebesh font">
+      <option name="closed" value="true" />
+      <created>1749297444155</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1749297444155</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Create a bug animation between fount">
+      <option name="closed" value="true" />
+      <created>1749297466916</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1749297466916</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -126,6 +148,12 @@
     <MESSAGE value="init" />
     <MESSAGE value="requirements update" />
     <MESSAGE value="update datapad.kv" />
-    <option name="LAST_COMMIT_MESSAGE" value="update datapad.kv" />
+    <MESSAGE value="Add logo&#10;Modify admin access" />
+    <MESSAGE value="Update .gitignore" />
+    <MESSAGE value="Add Glitch effect to all label except in admin menu&#10;remouve non apearing character" />
+    <MESSAGE value="Album name display" />
+    <MESSAGE value="add readable aurebesh font" />
+    <MESSAGE value="Create a bug animation between fount" />
+    <option name="LAST_COMMIT_MESSAGE" value="Create a bug animation between fount" />
   </component>
 </project>
